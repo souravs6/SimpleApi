@@ -7,7 +7,9 @@ import java.util.Random;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.simple.api.models.UserModel;
@@ -34,6 +36,14 @@ public class HomeController {
 		return new  ResponseEntity<>(userList,HttpStatus.OK);
 		
 	}
+	
+	@GetMapping("/welcome/{uname}")
+	public ResponseEntity<String> welcome(@PathVariable("uname") String name){
+		
+		return new ResponseEntity<>("Welcome "+name,HttpStatus.OK);
+		
+	}
+	
 	
 	protected String getSaltString(int length) {
         String SALTCHARS = "abcdefghijklmnopqrstuvwxyz";//"ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
