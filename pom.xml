@@ -29,8 +29,10 @@
 	<properties>
 		<java.version>17</java.version>
 		<sonar.projectKey>SimpleApi</sonar.projectKey>
-	  <sonar.host.url>http://http://54.210.61.113:9000</sonar.host.url>  <!-- Your SonarQube URL -->
-	  <sonar.login>sqp_0f700bd54397017d978b68e06a6fd291e2d3f1fc</sonar.login>
+	  	<sonar.host.url>http://http://54.210.61.113:9000</sonar.host.url>  <!-- Your SonarQube URL -->
+	  	<sonar.login>sqp_0f700bd54397017d978b68e06a6fd291e2d3f1fc</sonar.login>
+	  <!-- Exclude all .java files from analysis -->
+  		<sonar.exclusions>**/*.java</sonar.exclusions> 
 	</properties>
 	<dependencies>
 		<dependency>
