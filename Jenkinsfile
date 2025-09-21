@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/souravs6/SimpleApi.git'
+                git branch: 'main',url: 'https://github.com/souravs6/SimpleApi.git'
             }
         }
 
