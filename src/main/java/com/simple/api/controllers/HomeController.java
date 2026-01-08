@@ -45,7 +45,7 @@ public class HomeController {
 	}
 
 	@GetMapping("/errorlog")
-	public ResponseEntity<String> errorlog(errorlog){
+	public ResponseEntity<String> errorlog(){
 		
 		return new ResponseEntity<>("Checking error log checking",HttpStatus.OK);
 		
