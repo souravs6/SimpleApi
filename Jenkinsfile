@@ -13,7 +13,6 @@ pipeline {
     
 
     stages {
-
         stage('Verify Tools') {
             steps {
                 sh 'java -version'
