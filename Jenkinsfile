@@ -7,7 +7,7 @@ pipeline {
         DEPLOY_USER = "ec2-user"
         DEPLOY_HOST = "172.31.22.25"
         DEPLOY_DIR = "/home/ec2-user/app"
-        JAR_NAME = "demo-0.0.1-SNAPSHOT.jar"
+        JAR_NAME = "SimpleApi-1.0.jar"
     }
     
     
