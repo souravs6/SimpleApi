@@ -1,6 +1,9 @@
 pipeline {
     agent any
-
+    steps {
+        sh 'java -version'
+        sh 'mvn -v'
+    }
     environment {
         APP_NAME = "demo"
         APP_PORT = "8080"
