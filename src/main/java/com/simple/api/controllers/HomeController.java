@@ -43,6 +43,13 @@ public class HomeController {
 		return new ResponseEntity<>("Welcome "+name,HttpStatus.OK);
 		
 	}
+
+	@GetMapping("/errorlog")
+	public ResponseEntity<String> errorlog(errorlog){
+		
+		return new ResponseEntity<>("Checking error log",HttpStatus.OK);
+		
+	}
 	
 	
 	protected String getSaltString(int length) {
