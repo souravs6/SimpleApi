@@ -1,15 +1,13 @@
 pipeline {
     agent any
 
-    tools {
-        jdk 'JDK17'
-        maven 'Maven3'
-    }
-
     environment {
-        APP_SERVER = "ec2-user@<172.31.22.25>"
+        APP_NAME = "demo"
+        APP_PORT = "8080"
+        DEPLOY_USER = "ec2-user"
+        DEPLOY_HOST = "172.31.22.25"
         DEPLOY_DIR = "/home/ec2-user/app"
-        SSH_CRED = "app-server-ssh"
+        JAR_NAME = "demo-0.0.1-SNAPSHOT.jar"
     }
 
     stages {
@@ -27,36 +25,33 @@ pipeline {
             }
         }
 
-        stage('Copy JAR to App Server') {
+        stage('Copy JAR to Server') {
             steps {
-                sshagent(credentials: [SSH_CRED]) {
-                    sh """
-                    scp target/*.jar $APP_SERVER:$DEPLOY_DIR/app.jar
-                    """
-                }
+                sh """
+                ssh ${DEPLOY_USER}@${DEPLOY_HOST} 'mkdir -p ${DEPLOY_DIR}'
+                scp target/${JAR_NAME} ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_DIR}
+                """
             }
         }
 
-        stage('Restart Application') {
+        stage('Deploy Application') {
             steps {
-                sshagent(credentials: [SSH_CRED]) {
-                    sh """
-                    ssh $APP_SERVER << EOF
-                    pkill -f app.jar || true
-                    nohup java -jar $DEPLOY_DIR/app.jar > app.log 2>&1 &
-                    EOF
-                    """
-                }
+                sh """
+                ssh ${DEPLOY_USER}@${DEPLOY_HOST} '
+                pkill -f ${JAR_NAME} || true
+                nohup java -jar ${DEPLOY_DIR}/${JAR_NAME} > app.log 2>&1 &
+                '
+                """
             }
         }
     }
 
     post {
         success {
-            echo "✅ Deployment successful"
+            echo "Deployment Successful 🚀"
         }
         failure {
-            echo "❌ Deployment failed"
+            echo "Deployment Failed ❌"
         }
     }
 }
