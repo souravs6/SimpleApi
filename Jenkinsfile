@@ -1,9 +1,6 @@
 pipeline {
     agent any
-    steps {
-        sh 'java -version'
-        sh 'mvn -v'
-    }
+    
     environment {
         APP_NAME = "demo"
         APP_PORT = "8080"
@@ -11,6 +8,13 @@ pipeline {
         DEPLOY_HOST = "172.31.22.25"
         DEPLOY_DIR = "/home/ec2-user/app"
         JAR_NAME = "demo-0.0.1-SNAPSHOT.jar"
+    }
+    
+    stage('Verify Tools') {
+        steps {
+            sh 'java -version'
+            sh 'mvn -v'
+        }
     }
 
     stages {
