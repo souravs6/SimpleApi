@@ -10,14 +10,16 @@ pipeline {
         JAR_NAME = "demo-0.0.1-SNAPSHOT.jar"
     }
     
-    stage('Verify Tools') {
-        steps {
-            sh 'java -version'
-            sh 'mvn -v'
-        }
-    }
+    
 
     stages {
+
+        stage('Verify Tools') {
+            steps {
+                sh 'java -version'
+                sh 'mvn -v'
+            }
+        }
 
         stage('Checkout Code') {
             steps {
