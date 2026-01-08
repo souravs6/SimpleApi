@@ -45,10 +45,7 @@ pipeline {
         stage('Deploy Application') {
             steps {
                 sh """
-                ssh ${DEPLOY_USER}@${DEPLOY_HOST} '
-                pkill -f ${JAR_NAME} || true
-                nohup java -jar ${DEPLOY_DIR}/${JAR_NAME} > app.log 2>&1 &
-                '
+                ssh ${DEPLOY_USER}@${DEPLOY_HOST} "pkill -f ${JAR_NAME} || true; nohup java -jar ${DEPLOY_DIR}/${JAR_NAME} > ${DEPLOY_DIR}/app.log 2>&1 &"
                 """
             }
         }
