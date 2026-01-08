@@ -35,10 +35,7 @@ pipeline {
 
         stage('Copy JAR to Server') {
             steps {
-                sh """
-                ssh ${DEPLOY_USER}@${DEPLOY_HOST} 'mkdir -p ${DEPLOY_DIR}'
-                scp target/${JAR_NAME} ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_DIR}
-                """
+                sh "ssh ${DEPLOY_USER}@${DEPLOY_HOST} 'bash /home/ec2-user/deploy.sh' || true"
             }
         }
 
