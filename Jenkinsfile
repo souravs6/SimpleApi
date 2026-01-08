@@ -35,15 +35,17 @@ pipeline {
 
         stage('Copy JAR to Server') {
             steps {
-                sh "ssh ${DEPLOY_USER}@${DEPLOY_HOST} 'bash /home/ec2-user/deploy.sh' || true"
+                sh """
+                ssh ${DEPLOY_USER}@${DEPLOY_HOST} 'mkdir -p ${DEPLOY_DIR}'
+                scp target/${JAR_NAME} ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_DIR}
+                """
+                
             }
         }
 
         stage('Deploy Application') {
             steps {
-                sh """
-                ssh ${DEPLOY_USER}@${DEPLOY_HOST} "pkill -f ${JAR_NAME} || true; BUILD_ID=dontKillMe nohup java -jar ${DEPLOY_DIR}/${JAR_NAME} > ${DEPLOY_DIR}/app.log 2>&1 &"
-                """
+                sh "ssh ${DEPLOY_USER}@${DEPLOY_HOST} 'bash /home/ec2-user/deploy.sh' || true"
             }
         }
     }
